@@ -8,8 +8,6 @@ import android.widget.TextView;
 
 import com.yihukurama.cartoolsc.CarToolsC;
 import com.yihukurama.cartoolsc.R;
-import com.yihukurama.cartoolsc.controler.bluetooth.BluetoothCS;
-import com.yihukurama.cartoolsc.controler.handler.BlueHandler;
 import com.yihukurama.cartoolsc.model.Command;
 import com.yihukurama.cartoolsc.view.activity.BaseActivity;
 

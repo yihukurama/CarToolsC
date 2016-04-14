@@ -2,17 +2,13 @@ package com.yihukurama.cartoolsc.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.yihukurama.cartoolsc.CarToolsC;
 import com.yihukurama.cartoolsc.R;
-import com.yihukurama.cartoolsc.controler.bluetooth.BluetoothCS;
-import com.yihukurama.cartoolsc.controler.handler.BlueHandler;
 import com.yihukurama.cartoolsc.model.Command;
 import com.yihukurama.cartoolsc.view.activity.secactivity.GestureActivity;
 
@@ -96,6 +92,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.yaokong:
                 CarToolsC.bluetoothCS.sendMessageHandle(Command.SKIPTONGXUN);
+                CarToolsC.bluetoothCS.shutdownClient();
                 CarToolsC.bluetoothCS.startClient();
                 break;
             case R.id.shoushi:
@@ -103,6 +100,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 startActivity(new Intent(this,GestureActivity.class));
                 break;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            CarToolsC.bluetoothCS.sendMessageHandle(Command.EXIT);
+            System.exit(0);
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 
 }
