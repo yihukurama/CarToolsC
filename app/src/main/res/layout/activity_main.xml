@@ -31,22 +31,22 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/diantai"
+            android:id="@+id/cheliangfuwu"
             android:text="车辆服务" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tongxun"
+            android:id="@+id/yaokong"
             android:text="遥控" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/duomeiti"
+            android:id="@+id/shoushi"
             android:text="手势" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/shushi"
+            android:id="@+id/shezhi"
             android:text="设置" />
     </LinearLayout>
 

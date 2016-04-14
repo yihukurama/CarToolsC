@@ -39,19 +39,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         daohan = (Button)findViewById(R.id.daohan);
         daohan.setOnClickListener(this);
 
-        diantai = (Button)findViewById(R.id.diantai);
+        diantai = (Button)findViewById(R.id.cheliangfuwu);
         diantai.setOnClickListener(this);
 
         connectText = (TextView)findViewById(R.id.connect);
         connectText.setOnClickListener(this);
 
-        duomeiti = (Button)findViewById(R.id.duomeiti);
+        duomeiti = (Button)findViewById(R.id.shoushi);
         duomeiti.setOnClickListener(this);
 
-        shushi = (Button)findViewById(R.id.shushi);
+        shushi = (Button)findViewById(R.id.shezhi);
         shushi.setOnClickListener(this);
 
-        tongxun = (Button)findViewById(R.id.tongxun);
+        tongxun = (Button)findViewById(R.id.yaokong);
         tongxun.setOnClickListener(this);
 
     }
@@ -82,23 +82,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.connect:
-                CarToolsC.bluetoothCS.startClient();
+
                 break;
             case R.id.daohan:
 
                 CarToolsC.bluetoothCS.sendMessageHandle(Command.SKIPDAOHAN);
                 break;
-            case R.id.diantai:
+            case R.id.cheliangfuwu:
                 CarToolsC.bluetoothCS.sendMessageHandle(Command.SKIPDIANTAI);
                 break;
-            case R.id.shushi:
+            case R.id.shezhi:
                 CarToolsC.bluetoothCS.sendMessageHandle(Command.SKIPSHUSHI);
                 break;
-            case R.id.tongxun:
+            case R.id.yaokong:
                 CarToolsC.bluetoothCS.sendMessageHandle(Command.SKIPTONGXUN);
+                CarToolsC.bluetoothCS.startClient();
                 break;
-            case R.id.duomeiti:
+            case R.id.shoushi:
                 CarToolsC.bluetoothCS.sendMessageHandle(Command.SKIPDUOMEITI);
+                startActivity(new Intent(this,GestureActivity.class));
                 break;
         }
     }
