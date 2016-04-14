@@ -5,11 +5,11 @@ import android.os.Bundle;
 import com.yihukurama.cartoolsc.R;
 import com.yihukurama.cartoolsc.view.activity.BaseActivity;
 
-public class DiantaiActivity extends BaseActivity {
+public class YaokongActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diantai);
+        setContentView(R.layout.activity_tongxun);
     }
 }

@@ -7,6 +7,13 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.yihukurama.cartoolsc.view.activity.secactivity.DuomeitiActivity">
+    tools:context=".view.activity.secactivity.GestureActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fankui"
+        android:text="反馈信息"
+        android:textSize="30px"
+        android:layout_centerInParent="true"/>
 </RelativeLayout>

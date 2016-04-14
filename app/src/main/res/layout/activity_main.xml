@@ -32,20 +32,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/diantai"
-            android:text="电台" />
+            android:text="车辆服务" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="通讯" />
+            android:id="@+id/tongxun"
+            android:text="遥控" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/duomeiti"
-            android:text="多媒体" />
+            android:text="手势" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="舒适系统" />
+            android:id="@+id/shushi"
+            android:text="设置" />
     </LinearLayout>
 
 </RelativeLayout>

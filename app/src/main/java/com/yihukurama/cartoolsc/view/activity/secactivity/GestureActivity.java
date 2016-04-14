@@ -4,26 +4,37 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.widget.TextView;
 
+import com.yihukurama.cartoolsc.CarToolsC;
 import com.yihukurama.cartoolsc.R;
+import com.yihukurama.cartoolsc.controler.bluetooth.BluetoothCS;
+import com.yihukurama.cartoolsc.controler.handler.BlueHandler;
+import com.yihukurama.cartoolsc.model.Command;
 import com.yihukurama.cartoolsc.view.activity.BaseActivity;
 
-public class DuomeitiActivity extends BaseActivity implements GestureDetector.OnGestureListener{
+public class GestureActivity extends BaseActivity implements GestureDetector.OnGestureListener{
 
-    final String TAG = DuomeitiActivity.class.getSimpleName();
+    final String TAG = GestureActivity.class.getSimpleName();
     double moveY;
     double moveX;
     double bX,bY,eX,eY;
     int mode;
     GestureDetector gestureDetector;
-
+    TextView fankui;
+    String message;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_duomeiti);
+        setContentView(R.layout.activity_gesture);
         Log.i(TAG, "手势页面");
         prepare();
+        initView();
         initData();
+    }
+
+    private void initView() {
+        fankui = (TextView)findViewById(R.id.fankui);
     }
 
     private void prepare() {
@@ -31,7 +42,15 @@ public class DuomeitiActivity extends BaseActivity implements GestureDetector.On
     }
 
     private void initData() {
+
         gestureDetector = new GestureDetector(this,this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        CarToolsC.LinkDetectedHandler.setConnectText(fankui);
+        CarToolsC.LinkDetectedHandler.setMessage(message);
     }
 
     @Override
@@ -110,33 +129,50 @@ public class DuomeitiActivity extends BaseActivity implements GestureDetector.On
                     showShortToast("oneup");
                 }else if(mode == 2){
                     showShortToast("twoup");
+                    CarToolsC.bluetoothCS.sendMessageHandle(Command.TWOUP);
                 }else{
+                    CarToolsC.bluetoothCS.sendMessageHandle(Command.THREEUP);
                     showShortToast("threeup");
                 }
             }else{
                 Log.i(TAG,"下滑"+mode);
+                if(mode == 1){
+
+                }else if(mode == 2){
+                    CarToolsC.bluetoothCS.sendMessageHandle(Command.TWODOWN);
+                }else{
+                    CarToolsC.bluetoothCS.sendMessageHandle(Command.THREEDOWN);
+                }
             }
 
         }else{//左右滑动
             if(moveX<0){
                 Log.i(TAG,"左滑"+mode);
                 if(mode == 1){
-                    showShortToast("oneleft");
+
                 }else if(mode == 2){
-                    showShortToast("twoleft");
+                    CarToolsC.bluetoothCS.sendMessageHandle(Command.TWOLEFT);
                 }else{
-                    showShortToast("threeleft");
+
                 }
             }else{
                 Log.i(TAG,"右滑"+mode);
+                if(mode == 1){
+
+                }else if(mode == 2){
+                    CarToolsC.bluetoothCS.sendMessageHandle(Command.TWORIGHT);
+                }else{
+
+                }
             }
         }
 
 
 
-
+        fankui.setText(CarToolsC.LinkDetectedHandler.getMessage());
         mode = 0;
         Log.i(TAG,"清除");
         return false;
     }
+
 }
