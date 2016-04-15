@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.yihukurama.cartoolsc.CarToolsC;
 import com.yihukurama.cartoolsc.R;
 import com.yihukurama.cartoolsc.model.Command;
+import com.yihukurama.cartoolsc.view.activity.secactivity.DaohanActivity;
 import com.yihukurama.cartoolsc.view.activity.secactivity.GestureActivity;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
@@ -83,6 +84,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             case R.id.daohan:
 
                 CarToolsC.bluetoothCS.sendMessageHandle(Command.SKIPDAOHAN);
+                startActivity(new Intent(this, DaohanActivity.class));
                 break;
             case R.id.cheliangfuwu:
                 CarToolsC.bluetoothCS.sendMessageHandle(Command.SKIPDIANTAI);
