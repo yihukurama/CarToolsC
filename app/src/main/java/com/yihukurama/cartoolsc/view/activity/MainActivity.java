@@ -94,7 +94,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.yaokong:
                 CarToolsC.bluetoothCS.sendMessageHandle(Command.SKIPTONGXUN);
-                CarToolsC.bluetoothCS.shutdownClient();
+                try{
+                    CarToolsC.bluetoothCS.shutdownClient();
+                }catch (Exception e){
+
+                }
+
                 CarToolsC.bluetoothCS.startClient();
                 break;
             case R.id.shoushi:
