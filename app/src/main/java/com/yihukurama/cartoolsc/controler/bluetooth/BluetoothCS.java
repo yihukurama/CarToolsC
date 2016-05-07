@@ -129,7 +129,7 @@ public class BluetoothCS {
 
                 Message msg = new Message();
                 msg.obj = "已连接。";
-                msg.what = 0;
+                msg.what = 3;
                 LinkDetectedHandler.sendMessage(msg);
                 //启动接受数据
                 mreadThread = new readThread();
@@ -137,6 +137,12 @@ public class BluetoothCS {
             }
             catch (IOException e)
             {
+                Log.e("connect", "", e);
+                Message msg = new Message();
+                msg.obj = "连接异常！点击平板重连。";
+                msg.what = 0;
+                LinkDetectedHandler.sendMessage(msg);
+            }catch (Exception e){
                 Log.e("connect", "", e);
                 Message msg = new Message();
                 msg.obj = "连接异常！点击平板重连。";

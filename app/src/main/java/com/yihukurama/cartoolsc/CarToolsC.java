@@ -24,7 +24,8 @@ public class CarToolsC extends Application {
     public void onCreate() {
         super.onCreate();
         LinkDetectedHandler = new BlueHandler();
-        CarToolsC.bluetoothCS = new BluetoothCS("CC:79:DF:0B:1E:6D",LinkDetectedHandler);
+        CarToolsC.bluetoothCS = new BluetoothCS("C0:EE:FB:46:90:33",LinkDetectedHandler);
+        //CC:79:DF:0B:1E:6D平板
         /***
          * 初始化定位sdk，建议在Application中创建
          */

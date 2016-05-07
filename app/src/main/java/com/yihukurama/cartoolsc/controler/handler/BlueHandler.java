@@ -4,7 +4,10 @@ package com.yihukurama.cartoolsc.controler.handler;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.yihukurama.cartoolsc.R;
 
 /**
  * Created by Administrator on 2016/4/14 0014.
@@ -12,10 +15,12 @@ import android.widget.TextView;
 public class BlueHandler extends Handler{
     String message;
     TextView connectText;
+    Button lianjieBtn;
 
-    public BlueHandler(String message,TextView connectText){
+    public BlueHandler(String message,TextView connectText,Button lianjieBtn){
         this.message = message;
         this.connectText = connectText;
+        this.lianjieBtn = lianjieBtn;
     }
 
     public BlueHandler() {
@@ -37,10 +42,23 @@ public class BlueHandler extends Handler{
         this.connectText = connectText;
     }
 
+    public Button getLianjieBtn() {
+        return lianjieBtn;
+    }
+
+    public void setLianjieBtn(Button lianjieBtn) {
+        this.lianjieBtn = lianjieBtn;
+    }
+
     @Override
     public void handleMessage(Message msg) {
-
-        if (msg.what == 1)//客户端
+        if(msg.what == 3){//连接上了
+            String mes = (String) msg.obj;
+            message = "Server:" + message + "\n" + mes;
+            Log.i("bluetooth", "client" + mes);
+            connectText.setText(mes);
+            lianjieBtn.setBackgroundResource(R.mipmap.ae86_yilianjie);
+        }else if (msg.what == 1)//客户端
         {
             String mes = (String) msg.obj;
             message = "Server:" + message + "\n" + mes;

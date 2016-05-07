@@ -5,15 +5,15 @@ android {
         config {
             keyAlias 'yihukurama'
             keyPassword '123456'
-            storeFile file('/Volumes/DATA01/邓帅/GitHub/CarToolsC/carToolsT.jks')
+            storeFile file('D:/yizhi/StudioWorkspace/notebook/CarToolsC/carToolsT.jks')
             storePassword '123456'
         }
     }
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.0"
     defaultConfig {
         applicationId "com.yihukurama.cartoolsc"
-        minSdkVersion 21
+        minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -30,12 +30,20 @@ android {
     }
     productFlavors {
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/BaiduLBS_Android.jar')
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
     compile 'com.android.support:appcompat-v7:23.2.1'
     testCompile 'junit:junit:4.12'
+    compile project(':library')
 }
+

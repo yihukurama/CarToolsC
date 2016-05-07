@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_shadow">
+    <View
+        android:id="@+id/stras_padding"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/tram"/>
+    <ImageView
+        android:id="@+id/menu_close_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stras_padding"
+        android:layout_marginTop="101.6px"
+        android:layout_marginLeft="33.1px"
+        android:padding="30px"
+        android:src="@mipmap/menu_close"
+        android:background="@null"/>
+
+    <ImageButton
+        android:id="@+id/dangqianlianjie_ibtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="454px"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="63.1px"
+        android:src="@mipmap/dangqianlianjie"
+        android:background="@null"/>
+
+    <TextView
+        android:id="@+id/dangqianlianjie_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/dangqianlianjie_ibtn"
+        android:layout_marginTop="52px"
+        android:text="当前连接车辆"
+        android:textColor="#68728A"
+        android:textSize="42px"/>
+
+
+    <Button
+        android:id="@+id/ae86_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="157px"
+        android:layout_below="@+id/dangqianlianjie_tv"
+        android:background="@drawable/ae86"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/youxiang"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

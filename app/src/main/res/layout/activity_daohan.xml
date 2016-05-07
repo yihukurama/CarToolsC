@@ -3,12 +3,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:background="@color/colorPrimaryDark"
+    android:id="@+id/daohan_blank"
     tools:context="com.yihukurama.cartoolsc.view.activity.secactivity.DaohanActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <com.baidu.mapapi.map.MapView
-        android:id="@+id/bmapView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#393C41">
+        <ImageView
+            android:id="@+id/biaoqian1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/biaoqian1"
+            android:layout_marginTop="144px"/>
+
+        <Button
+            android:id="@+id/sousuo2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/sousuo2"/>
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="58dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@null"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/biaoqian1"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/jilu1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/jilu1"/>
+            <ImageView
+                android:id="@+id/jilu2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/jilu2"/>
+            <ImageView
+                android:id="@+id/jilu3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/jilu3"/>
+            <ImageView
+                android:id="@+id/jilu4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/jilu4"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@mipmap/keyboard"/>
+    </RelativeLayout>
 </RelativeLayout>
