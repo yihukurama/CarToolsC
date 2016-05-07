@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_main_ly"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/background">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="386px"
+        android:background="@mipmap/title">
+        </View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:clipToPadding="true"
+            android:fitsSystemWindows="true"
+            android:visibility="gone" />
+
+        <com.jeremyfeinstein.slidingmenu.lib.SlidingMenu
+            xmlns:sliding="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/slidingmenulayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            sliding:behindOffset="0dp"
+            sliding:behindScrollScale="1"
+            sliding:fadeDegree="0.7"
+            sliding:fadeEnabled="true"
+            sliding:touchModeAbove="margin"
+            sliding:viewAbove="@layout/activity_main"
+            android:visibility="visible"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -3,7 +3,9 @@ package com.yihukurama.cartoolsc.view.activity.secactivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.yihukurama.cartoolsc.CarToolsC;
@@ -21,10 +23,13 @@ public class GestureActivity extends BaseActivity implements GestureDetector.OnG
     GestureDetector gestureDetector;
     TextView fankui;
     String message;
+    public static GestureActivity instance;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//去掉信息栏
         setContentView(R.layout.activity_gesture);
+        instance = this;
         Log.i(TAG, "手势页面");
         prepare();
         initView();
@@ -87,6 +92,18 @@ public class GestureActivity extends BaseActivity implements GestureDetector.OnG
         return gestureDetector.onTouchEvent(event);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+                return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+    @Override
+    protected void onDestroy() {
+        instance = null;
+        super.onDestroy();
+    }
 
     @Override
     public boolean onDown(MotionEvent e) {
