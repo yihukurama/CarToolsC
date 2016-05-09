@@ -4,10 +4,14 @@ package com.yihukurama.cartoolsc.controler.handler;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.yihukurama.cartoolsc.R;
+import com.yihukurama.cartoolsc.model.Command;
+import com.yihukurama.cartoolsc.view.activity.BaseActivity;
+import com.yihukurama.cartoolsc.view.activity.MainActivity;
 
 /**
  * Created by Administrator on 2016/4/14 0014.
@@ -58,6 +62,8 @@ public class BlueHandler extends Handler{
             Log.i("bluetooth", "client" + mes);
             connectText.setText(mes);
             lianjieBtn.setBackgroundResource(R.mipmap.ae86_yilianjie);
+            BaseActivity.bluetoothIsConnected=true;
+            MainActivity.instance.goToGesture();
         }else if (msg.what == 1)//客户端
         {
             String mes = (String) msg.obj;
@@ -70,6 +76,8 @@ public class BlueHandler extends Handler{
             Log.i("bluetooth", "server" + remes);
             message = "Server:" + message + "\n" + remes;
             connectText.setText(remes);
+            if(remes.startsWith(Command.DANGQIANWENDU))
+                BaseActivity.wendu=Integer.getInteger(remes.substring(3));
         }
     }
 }

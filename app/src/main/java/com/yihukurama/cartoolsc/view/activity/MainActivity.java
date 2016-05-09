@@ -88,7 +88,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     Button ae86_btn;
     ImageView menuclose;
 
-    boolean isConnected = false;
+    public static boolean powerIsConnected = false;
 
     float bilichi = 16;
     float overlookvalue = -180;
@@ -98,12 +98,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final int accuracyCircleFillColor = 0xAAFFFF88;
     private static final int accuracyCircleStrokeColor = 0xAA00FF00;
 
+    public static MainActivity instance;
+
     private IntentFilter mIntentFilter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sliding_menu_main);
         mCurrentMode = LocationMode.NORMAL;
+        instance=this;
         prepare();
         initView();
         initData();
@@ -363,22 +366,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 mBaiduMap.snapshot(new BaiduMap.SnapshotReadyCallback() {
                     @Override
                     public void onSnapshotReady(Bitmap bitmap) {
-                        if (tempBitmap != null && bitmap!=null && tempBitmap.equals(bitmap)) {
-                        }else if(tempBitmap != null && !tempBitmap.isRecycled() && bitmap!=null){
+                        if (tempBitmap != null && bitmap != null && tempBitmap.equals(bitmap)) {
+                        } else if (tempBitmap != null && !tempBitmap.isRecycled() && bitmap != null) {
                             tempBitmap.recycle();
                             tempBitmap = null;
                             tempBitmap = bitmap;
                             imageTemp.setImageBitmap(tempBitmap);
-                        }else if(bitmap!=null){
+                        } else if (bitmap != null) {
                             tempBitmap = bitmap;
                             imageTemp.setImageBitmap(tempBitmap);
                         }
-                        Log.i("snapshot","onMapStatusChangeFinish");
+                        Log.i("snapshot", "onMapStatusChangeFinish");
                     }
                 });
             }
         });
 
+        try{
+            CarToolsC.bluetoothCS.startClient();
+        }catch (Exception e){
+
+        }
     }
 
     private void prepare() {
@@ -461,13 +469,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if (menu.isMenuShowing())
                     menu.toggle();
                 else menu.showMenu();
+
+                Intent intent1 = new Intent(context, GestureActivity.class);
+                context.startActivity(intent1);
                 break;
             case R.id.menu_close_iv:
                 if (menu.isMenuShowing())
                     menu.toggle();
                 break;
             case R.id.ae86_btn:
-                CarToolsC.bluetoothCS.sendMessageHandle(Command.SKIPTONGXUN);
                 try {
                     CarToolsC.bluetoothCS.shutdownClient();
                 } catch (Exception e) {
@@ -713,17 +723,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //            }
 
             if(intent.getAction()==Intent.ACTION_POWER_CONNECTED){
-                if(GestureActivity.instance==null) {
-                    Intent intent1 = new Intent(context, GestureActivity.class);
-                    context.startActivity(intent1);
-                }
-                isConnected = true;
+                goToGesture();
+                powerIsConnected = true;
             }else if(intent.getAction()==Intent.ACTION_POWER_DISCONNECTED){
                 if(GestureActivity.instance!=null)
                   GestureActivity.instance.finish();
-                isConnected = false;
+                powerIsConnected = false;
             }
         }
     };
+
+    public void goToGesture(){
+        if(bluetoothIsConnected && powerIsConnected && GestureActivity.instance==null){
+            Intent intent1 = new Intent(context, GestureActivity.class);
+            context.startActivity(intent1);
+        }
+    }
 
 }

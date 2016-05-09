@@ -12,12 +12,45 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/huadong_tips"
         android:layout_centerInParent="true"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fankui"
-        android:text="反馈信息"
-        android:textSize="30px"
-        android:layout_centerInParent="true"
-        android:visibility="gone"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/huadong_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="669px"
+            android:src="@mipmap/up"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fankui"
+            android:text="反馈信息"
+            android:textSize="30px"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+        <com.yihukurama.cartoolsc.view.widget.BebasNeueFontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/num"
+            android:text="24"
+            android:textSize="260px"
+            android:textColor="#fff"
+            android:gravity="top"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="76px"
+            android:visibility="visible"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hint"
+            android:text="温度"
+            android:textSize="60px"
+            android:textColor="#ABB0BE"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="359px"
+            android:visibility="visible"/>
+    </RelativeLayout>
 </RelativeLayout>

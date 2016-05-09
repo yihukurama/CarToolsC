@@ -1,6 +1,9 @@
 package com.yihukurama.cartoolsc.view.activity.secactivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -10,10 +13,14 @@ import android.widget.RelativeLayout;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapView;
+import com.yihukurama.cartoolsc.CarToolsC;
 import com.yihukurama.cartoolsc.R;
 import com.yihukurama.cartoolsc.controler.MediaManager;
+import com.yihukurama.cartoolsc.model.Command;
 import com.yihukurama.cartoolsc.model.ConstantValue;
 import com.yihukurama.cartoolsc.view.activity.BaseActivity;
+
+import java.io.File;
 
 public class DaohanActivity extends BaseActivity implements View.OnClickListener{
     MapView mapView;
@@ -24,6 +31,7 @@ public class DaohanActivity extends BaseActivity implements View.OnClickListener
     Button cancel;
     Button keyboard;
     ImageView jilu1,jilu2,jilu3,jilu4;
+    final int playVideo = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +76,24 @@ public class DaohanActivity extends BaseActivity implements View.OnClickListener
             case R.id.sousuo2:
                 //播放视频
                 keyboard.setVisibility(View.VISIBLE);
-                MediaManager.playDefault(context, ConstantValue.DAOHANMEDIA);
+//                MediaManager.playDefault(context, ConstantValue.DAOHANMEDIA);
+                Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()+ File.separator+ConstantValue.DAOHANMEDIA);
+                //调用系统自带的播放器
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(uri, "video/mp4");
+                startActivityForResult(intent, playVideo);
+
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        System.out.println("requestCode:"+requestCode+" resultCode:"+resultCode);
+        if(requestCode==playVideo){
+
+            CarToolsC.bluetoothCS.sendMessageHandle(Command.SAVEADDRESS);
         }
     }
 }

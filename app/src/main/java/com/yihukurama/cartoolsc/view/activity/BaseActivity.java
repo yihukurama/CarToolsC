@@ -18,6 +18,10 @@ import com.yihukurama.cartoolsc.controler.utils.android.SystemBarTintManager;
 public class BaseActivity extends AppCompatActivity {
     protected Context context;
     protected SystemBarTintManager mTintManager;
+
+    public static int yinliang=50;
+    public static int wendu=25;
+    public static boolean bluetoothIsConnected=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

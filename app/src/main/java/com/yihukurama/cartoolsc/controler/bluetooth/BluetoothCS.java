@@ -50,6 +50,7 @@ public class BluetoothCS {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            startClient();
         }
 
     }
