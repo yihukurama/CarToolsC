@@ -65,6 +65,7 @@ public class DaohanActivity extends BaseActivity implements View.OnClickListener
         jilu2.setOnClickListener(this);
         jilu3.setOnClickListener(this);
         jilu4.setOnClickListener(this);
+        keyboard.setOnClickListener(this);
     }
 
     @Override
@@ -76,13 +77,14 @@ public class DaohanActivity extends BaseActivity implements View.OnClickListener
             case R.id.sousuo2:
                 //播放视频
                 keyboard.setVisibility(View.VISIBLE);
-//                MediaManager.playDefault(context, ConstantValue.DAOHANMEDIA);
+                break;
+            case R.id.keyboard:
+                //MediaManager.playDefault(context, ConstantValue.DAOHANMEDIA);
                 Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()+ File.separator+ConstantValue.DAOHANMEDIA);
                 //调用系统自带的播放器
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(uri, "video/mp4");
                 startActivityForResult(intent, playVideo);
-
                 break;
         }
     }
@@ -92,8 +94,7 @@ public class DaohanActivity extends BaseActivity implements View.OnClickListener
         super.onActivityResult(requestCode, resultCode, data);
         System.out.println("requestCode:"+requestCode+" resultCode:"+resultCode);
         if(requestCode==playVideo){
-
-            CarToolsC.bluetoothCS.sendMessageHandle(Command.SAVEADDRESS);
+            alreadyPlayVidio=true;
         }
     }
 }

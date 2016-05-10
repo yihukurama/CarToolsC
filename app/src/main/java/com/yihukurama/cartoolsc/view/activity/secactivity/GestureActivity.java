@@ -286,7 +286,7 @@ public class GestureActivity extends BaseActivity implements GestureDetector.OnG
                     huadong_show.setImageResource(R.mipmap.left);
                     image_alpha=255;
                     mHandler.sendMessage(mHandler.obtainMessage());
-                    CarToolsC.bluetoothCS.sendMessageHandle(Command.WENDUJIAN);
+                    CarToolsC.bluetoothCS.sendMessageHandle(Command.WENDUJIAN+ ":"+wendu);
                 }
             }else{
                 Log.i(TAG, "右滑" + mode);
@@ -302,7 +302,7 @@ public class GestureActivity extends BaseActivity implements GestureDetector.OnG
                     huadong_show.setImageResource(R.mipmap.right);
                     image_alpha=255;
                     mHandler.sendMessage(mHandler.obtainMessage());
-                    CarToolsC.bluetoothCS.sendMessageHandle(Command.WENDUJIA);
+                    CarToolsC.bluetoothCS.sendMessageHandle(Command.WENDUJIA+ ":"+wendu);
                 }
             }
 
@@ -364,7 +364,7 @@ public class GestureActivity extends BaseActivity implements GestureDetector.OnG
         }).start();
 
         // 隐藏
-        CarToolsC.bluetoothCS.sendMessageHandle(Command.ENDGESTURE);
+//        CarToolsC.bluetoothCS.sendMessageHandle(Command.ENDGESTURE);
         Log.i(TAG,"结束手势");
     }
 }

@@ -124,7 +124,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         //µÁ≥ÿœ‡πÿ
         mIntentFilter = new IntentFilter();
-//        mIntentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
+        mIntentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
         mIntentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
         mIntentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
 
@@ -470,8 +470,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     menu.toggle();
                 else menu.showMenu();
 
-                Intent intent1 = new Intent(context, GestureActivity.class);
-                context.startActivity(intent1);
+//                Intent intent1 = new Intent(context, GestureActivity.class);
+//                context.startActivity(intent1);
                 break;
             case R.id.menu_close_iv:
                 if (menu.isMenuShowing())
@@ -729,6 +729,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if(GestureActivity.instance!=null)
                   GestureActivity.instance.finish();
                 powerIsConnected = false;
+            }else if(intent.getAction()==Intent.ACTION_BATTERY_CHANGED && isCharging){
+                goToGesture();
+                powerIsConnected = true;
             }
         }
     };
@@ -737,6 +740,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if(bluetoothIsConnected && powerIsConnected && GestureActivity.instance==null){
             Intent intent1 = new Intent(context, GestureActivity.class);
             context.startActivity(intent1);
+            if(alreadyPlayVidio){
+                CarToolsC.bluetoothCS.sendMessageHandle(Command.SAVEADDRESS);
+                alreadyPlayVidio=false;
+            }
         }
     }
 

@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.yihukurama.cartoolsc.CarToolsC;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -50,7 +52,14 @@ public class BluetoothCS {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            try {
+                CarToolsC.bluetoothCS.shutdownClient();
+            } catch (Exception e2) {
+
+            }
             startClient();
+        } catch (Exception e){
+            e.printStackTrace();
         }
 
     }
@@ -143,12 +152,24 @@ public class BluetoothCS {
                 msg.obj = "连接异常！点击平板重连。";
                 msg.what = 0;
                 LinkDetectedHandler.sendMessage(msg);
+                try {
+                    CarToolsC.bluetoothCS.shutdownClient();
+                } catch (Exception e2) {
+
+                }
+                startClient();
             }catch (Exception e){
                 Log.e("connect", "", e);
                 Message msg = new Message();
                 msg.obj = "连接异常！点击平板重连。";
                 msg.what = 0;
                 LinkDetectedHandler.sendMessage(msg);
+                try {
+                    CarToolsC.bluetoothCS.shutdownClient();
+                } catch (Exception e2) {
+
+                }
+                startClient();
             }
         }
     };

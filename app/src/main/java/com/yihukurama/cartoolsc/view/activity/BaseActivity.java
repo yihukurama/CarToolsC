@@ -22,6 +22,7 @@ public class BaseActivity extends AppCompatActivity {
     public static int yinliang=50;
     public static int wendu=25;
     public static boolean bluetoothIsConnected=false;
+    public static boolean alreadyPlayVidio=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
