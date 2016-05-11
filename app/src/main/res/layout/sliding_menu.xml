@@ -49,7 +49,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="157px"
         android:layout_below="@+id/dangqianlianjie_tv"
-        android:background="@drawable/ae86"/>
+        android:background="@mipmap/ae86_1"/>
 
     <Button
         android:layout_width="match_parent"

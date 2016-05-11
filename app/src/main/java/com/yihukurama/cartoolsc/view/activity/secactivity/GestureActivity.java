@@ -206,7 +206,13 @@ public class GestureActivity extends BaseActivity implements GestureDetector.OnG
             num.setText(yinliang + "");
 
             Log.i(TAG, "滚动" + Command.YINLIANG + ":" + yinliang);
-            CarToolsC.bluetoothCS.sendMessageHandle(Command.YINLIANG + ":"+yinliang);
+            if(bluetoothIsConnected)
+                CarToolsC.bluetoothCS.sendMessageHandle(Command.YINLIANG + ":"+yinliang);
+            else{
+                finish();
+                showLongToast("连接失败，请稍后重试");
+            }
+
             if(isFistChangeYinlinag){
                 if(moveY>0){
                     huadong_show.setImageResource(R.mipmap.up);
@@ -286,7 +292,12 @@ public class GestureActivity extends BaseActivity implements GestureDetector.OnG
                     huadong_show.setImageResource(R.mipmap.left);
                     image_alpha=255;
                     mHandler.sendMessage(mHandler.obtainMessage());
-                    CarToolsC.bluetoothCS.sendMessageHandle(Command.WENDUJIAN+ ":"+wendu);
+                    if(bluetoothIsConnected)
+                        CarToolsC.bluetoothCS.sendMessageHandle(Command.WENDUJIAN+ ":"+wendu);
+                    else{
+                        finish();
+                        showLongToast("连接失败，请稍后重试");
+                    }
                 }
             }else{
                 Log.i(TAG, "右滑" + mode);
@@ -302,7 +313,12 @@ public class GestureActivity extends BaseActivity implements GestureDetector.OnG
                     huadong_show.setImageResource(R.mipmap.right);
                     image_alpha=255;
                     mHandler.sendMessage(mHandler.obtainMessage());
-                    CarToolsC.bluetoothCS.sendMessageHandle(Command.WENDUJIA+ ":"+wendu);
+                    if(bluetoothIsConnected)
+                        CarToolsC.bluetoothCS.sendMessageHandle(Command.WENDUJIA+ ":"+wendu);
+                    else{
+                        finish();
+                        showLongToast("连接失败，请稍后重试");
+                    }
                 }
             }
 
@@ -350,6 +366,8 @@ public class GestureActivity extends BaseActivity implements GestureDetector.OnG
 
                     image_alpha = 255;
                     while (image_alpha>=5 && !isScoll) {
+                        if(GestureActivity.instance==null)
+                            break;
                         try {
                             image_alpha-=5;
                             Thread.sleep(10 );

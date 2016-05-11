@@ -12,6 +12,7 @@ import com.yihukurama.cartoolsc.R;
 import com.yihukurama.cartoolsc.model.Command;
 import com.yihukurama.cartoolsc.view.activity.BaseActivity;
 import com.yihukurama.cartoolsc.view.activity.MainActivity;
+import com.yihukurama.cartoolsc.view.activity.secactivity.GestureActivity;
 
 /**
  * Created by Administrator on 2016/4/14 0014.
@@ -64,6 +65,16 @@ public class BlueHandler extends Handler{
             lianjieBtn.setBackgroundResource(R.mipmap.ae86_yilianjie);
             BaseActivity.bluetoothIsConnected=true;
             MainActivity.instance.goToGesture();
+        }else if (msg.what == 4)//客户端
+        {
+            String mes = (String) msg.obj;
+            message = "Server:" + message + "\n" + mes;
+            Log.i("bluetooth", "client" + mes);
+            connectText.setText(mes);
+            lianjieBtn.setBackgroundResource(R.mipmap.ae86_1);
+            BaseActivity.bluetoothIsConnected=false;
+            if(GestureActivity.instance!=null)
+                GestureActivity.instance.finish();
         }else if (msg.what == 1)//客户端
         {
             String mes = (String) msg.obj;

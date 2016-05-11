@@ -478,12 +478,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     menu.toggle();
                 break;
             case R.id.ae86_btn:
-                try {
-                    CarToolsC.bluetoothCS.shutdownClient();
-                } catch (Exception e) {
+                if(!bluetoothIsConnected) {
+                    try {
+                        CarToolsC.bluetoothCS.shutdownClient();
+                    } catch (Exception e) {
 
+                    }
+                    CarToolsC.bluetoothCS.startClient();
                 }
-                CarToolsC.bluetoothCS.startClient();
                 break;
             case R.id.yaokong_btn:
                 yaokong_btn.setTextColor(0xffffffff);
@@ -712,15 +714,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
 
             Log.i("Receiver", "isCharging:"+isCharging+" usbCharge:"+usbCharge+" acCharge:"+acCharge);
-//            Toast.makeText(context, status + " isCharging:" + isCharging + " usbCharge:" + usbCharge + " acCharge:" + acCharge, Toast.LENGTH_SHORT).show();
-//            if(isCharging &&  GestureActivity.instance==null){
-//                Intent intent1=new Intent(context, GestureActivity.class);
-//                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                context.startActivity(intent1);
-
-//            }else if(GestureActivity.instance!=null){
-//                 GestureActivity.instance.finish();
-//            }
 
             if(intent.getAction()==Intent.ACTION_POWER_CONNECTED){
                 goToGesture();
@@ -729,9 +722,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 if(GestureActivity.instance!=null)
                   GestureActivity.instance.finish();
                 powerIsConnected = false;
-            }else if(intent.getAction()==Intent.ACTION_BATTERY_CHANGED && isCharging){
-                goToGesture();
-                powerIsConnected = true;
+            }else if(intent.getAction()==Intent.ACTION_BATTERY_CHANGED ){
+                if(isCharging) {
+                    goToGesture();
+                    powerIsConnected = true;
+                }else{
+                    if(GestureActivity.instance!=null)
+                        GestureActivity.instance.finish();
+                    powerIsConnected = false;
+                }
             }
         }
     };

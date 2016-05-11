@@ -1,5 +1,6 @@
 package com.yihukurama.cartoolsc.controler.bluetooth;
 
+import android.app.Application;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
@@ -7,8 +8,10 @@ import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.yihukurama.cartoolsc.CarToolsC;
+import com.yihukurama.cartoolsc.view.activity.BaseActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +38,7 @@ public class BluetoothCS {
     public BluetoothCS(String address, Handler linkDetectedHandler) {
         this.address = address;
         LinkDetectedHandler = linkDetectedHandler;
+        checkConnected();
     }
 
 
@@ -52,6 +56,7 @@ public class BluetoothCS {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            BaseActivity.bluetoothIsConnected=false;
             try {
                 CarToolsC.bluetoothCS.shutdownClient();
             } catch (Exception e2) {
@@ -72,6 +77,8 @@ public class BluetoothCS {
 
     //开启客户端线程
     public void startClient() {
+        if(!mBluetoothAdapter.isEnabled())
+            mBluetoothAdapter.enable();
         if (!address.equals("null")) {
             device = mBluetoothAdapter.getRemoteDevice(address);
             clientConnectThread = new clientThread();
@@ -144,35 +151,89 @@ public class BluetoothCS {
                 //启动接受数据
                 mreadThread = new readThread();
                 mreadThread.start();
-            }
-            catch (IOException e)
-            {
-                Log.e("connect", "", e);
-                Message msg = new Message();
-                msg.obj = "连接异常！点击平板重连。";
-                msg.what = 0;
-                LinkDetectedHandler.sendMessage(msg);
-                try {
-                    CarToolsC.bluetoothCS.shutdownClient();
-                } catch (Exception e2) {
-
-                }
-                startClient();
             }catch (Exception e){
                 Log.e("connect", "", e);
                 Message msg = new Message();
                 msg.obj = "连接异常！点击平板重连。";
                 msg.what = 0;
                 LinkDetectedHandler.sendMessage(msg);
-                try {
-                    CarToolsC.bluetoothCS.shutdownClient();
-                } catch (Exception e2) {
-
-                }
-                startClient();
-            }
+//                try {
+//                    CarToolsC.bluetoothCS.shutdownClient();
+//                } catch (Exception e2) {
+//
+//                }
+//                reStartClient();
+        }
         }
     };
+
+    //循环开启
+   private void reStartClient(){
+       while(true) {
+           try {
+               Thread.sleep(30000);
+           } catch (InterruptedException e) {
+               e.printStackTrace();
+           }
+           try {
+               //创建一个Socket连接：只需要服务器在注册时的UUID号
+               // socket = device.createRfcommSocketToServiceRecord(BluetoothProtocols.OBEX_OBJECT_PUSH_PROTOCOL_UUID);
+               socket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
+               //连接
+               Message msg2 = new Message();
+               msg2.obj = "正在连接平板:" + address;
+               LinkDetectedHandler.sendMessage(msg2);
+
+               socket.connect();
+
+               Message msg = new Message();
+               msg.obj = "已连接。";
+               msg.what = 3;
+               LinkDetectedHandler.sendMessage(msg);
+               //启动接受数据
+               mreadThread = new readThread();
+               mreadThread.start();
+               break;
+           } catch (Exception e) {
+               Log.e("connect", "", e);
+               Message msg = new Message();
+               msg.obj = "连接异常！点击平板重连。";
+               msg.what = 0;
+               LinkDetectedHandler.sendMessage(msg);
+           }
+       }
+    }
+
+    private void checkConnected (){
+        new Thread() {
+            public void run() {
+              while (true){
+                  try {
+                      sleep(5000);
+                  } catch (InterruptedException e) {
+                      e.printStackTrace();
+                  }
+                  if(socket==null || !socket.isConnected()){
+                      Message msg = new Message();
+                      msg.obj = "连接异常";
+                      msg.what = 4;
+                      LinkDetectedHandler.sendMessage(msg);
+                      try {
+                          shutdownClient();
+                      }catch (Exception e){
+                          e.printStackTrace();
+                      }
+                      startClient();
+                  }else{
+                      Message msg = new Message();
+                      msg.obj = "连接正常";
+                      msg.what = 3;
+                      LinkDetectedHandler.sendMessage(msg);
+                  }
+              }
+            };
+        }.start();
+    }
 
     //开启服务器
     private class ServerThread extends Thread {
